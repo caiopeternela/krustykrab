@@ -10,14 +10,14 @@
                 <div>Actions:</div>
             </div>
         </div>
-        <div v-if="editableMode" class="table-rows">
+        <div v-if="!editableMode" class="table-rows">
             <div class="table-row" v-for="order in orders" :key="order.id">
                 <div class="order-number">{{ order.id }}</div>
                 <div>{{ order.name }}</div>
                 <div>{{ order.burger }}</div>
                 <div>{{ order.sideDish }}</div>
                 <div>{{ order.drink }}</div>
-                <button class="edit" @click="editOrder(order.id)">Edit order</button>
+                <button class="edit" @click="editOrderStatus(order.id)">Edit</button>
                 <button class="delete" @click="deleteOrder(order.id)">Cancel order</button>
             </div>
         </div>
@@ -26,24 +26,24 @@
                 <div class="order-number">{{ order.id }}</div>
                 <div>{{ order.name }}</div>
                 <div class="input-container">
-                    <select name="burger" id="burger" v-model="order.burger">
+                    <select @change="editOrder($event, order.id)" name="burger" id="burger" v-model="order.burger">
                         <option value="" disabled selected>Choose a burger</option>
                         <option v-for="burger in burgers" :key="burger.id" :value="burger.name">{{ burger.name }}</option>
                     </select>
                 </div>
                 <div class="input-container">
-                    <select name="sideDish" id="sideDish" v-model="order.sideDish">
+                    <select @change="editOrder($event, order.id)" name="sideDish" id="sideDish" v-model="order.sideDish">
                         <option value="" disabled selected>Choose a side dish</option>
                         <option v-for="sideDish in sideDishes" :key="sideDish.id" :value="sideDish.name">{{ sideDish.name }}</option>
                     </select>
                 </div>
                 <div class="input-container">
-                    <select name="drink" id="drink" v-model="order.drink">
+                    <select @change="editOrder($event, order.id)" name="drink" id="drink" v-model="order.drink">
                         <option value="" disabled selected>Choose a drink</option>
                         <option v-for="drink in drinks" :key="drink.id" :value="drink.name">{{ drink.name }}</option>
                     </select>
                 </div>
-                    <button class="edit" @click="editOrder(order.id)">Edit order</button>
+                    <button class="edit" @click="editOrderStatus(order.id)">Save</button>
                     <button class="delete" @click="deleteOrder(order.id)">Cancel order</button>
                 </div>
             </div>
@@ -88,9 +88,9 @@
                 const res = await req.json()
                 this.getOrders()
             },
-            async editOrder(id) {
-                this.editableMode = !this.editableMode
-                // console.log("rodou a função edit order")
+            async editOrder(event, id) {
+                const newValue = event.target.value
+                const key = event.target.id
                 // const dataJson = JSON.stringfy({})
                 // const req = await fetch(`http://localhost:3000/orders/${id}`, {
                 //     method: "PATCH",
@@ -98,6 +98,9 @@
                 //     body: dataJson
                 // })
                 // const res = await req.json()
+            },
+            editOrderStatus() {
+                this.editableMode = !this.editableMode
             }
         },
         mounted() {
@@ -151,8 +154,19 @@
         transition: .5s;
     }
 
+    .edit {
+        width: 75px;
+    }
+
     .delete:hover, .edit:hover {
         background-color: #00AEF0;
+    }
+
+    input, select {
+        font-size: 16px;
+        border-radius: 3px;
+        background-color: white;
+        border: 2px solid black;
     }
 
 </style>

@@ -39,8 +39,8 @@
   },
   "orders": [
     {
-      "name": "Caio",
-      "burger": "Krabby Patty",
+      "name": "Pedro",
+      "burger": "Double Krabby Patty",
       "sideDish": "Coral Bits",
       "drink": "Kelp Shake",
       "id": 1
