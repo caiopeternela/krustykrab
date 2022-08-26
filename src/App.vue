@@ -1,32 +1,46 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <Navbar :logo="logo" :alt="alt"/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
+<script>
+  import Navbar from "./components/Navbar.vue"
+  import Footer from "./components/Footer.vue"
+  export default {
+    components: {
+      Navbar,
+      Footer,
+    },
+    data() {
+      return {
+        logo: "/img/logo.png",
+        alt: "Krusty Krab"
+      }
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
 
-nav {
-  padding: 30px;
-}
+  * {
+    font-family: 'Chelsea Market', cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  .main-container {
+    margin: 50px;
+    min-height: 250px;
+  }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 30px;
+  }
 </style>

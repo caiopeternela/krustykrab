@@ -1,0 +1,49 @@
+{
+  "menu": {
+    "burgers": [
+      {
+        "id": 1,
+        "name": "Krabby Patty",
+        "price": 3
+      },
+      {
+        "id": 2,
+        "name": "Double Krabby Patty",
+        "price": 5
+      }
+    ],
+    "sideDishes": [
+      {
+        "id": 1,
+        "name": "Kelp Fries",
+        "price": 1.5
+      },
+      {
+        "id": 2,
+        "name": "Coral Bits",
+        "price": 1.25
+      }
+    ],
+    "drinks": [
+      {
+        "id": 1,
+        "name": "Kelp Shake",
+        "price": 1
+      },
+      {
+        "id": 2,
+        "name": "Drinkable Sausage",
+        "price": 1.25
+      }
+    ]
+  },
+  "orders": [
+    {
+      "name": "Caio",
+      "burger": "Krabby Patty",
+      "sideDish": "Coral Bits",
+      "drink": "Kelp Shake",
+      "id": 1
+    }
+  ]
+}
