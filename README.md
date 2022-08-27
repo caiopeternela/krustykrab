@@ -10,5 +10,6 @@ npm install
 npm run krustykrab
 ```
 ### Stack
+```
 Vue.js & JSON Server
 ```
