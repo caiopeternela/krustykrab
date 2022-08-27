@@ -3,46 +3,52 @@
     "burgers": [
       {
         "id": 1,
-        "name": "Krabby Patty",
-        "price": 3
+        "name": "Krabby Patty"
       },
       {
         "id": 2,
-        "name": "Double Krabby Patty",
-        "price": 5
+        "name": "Double Krabby Patty"
+      },
+      {
+        "id": 3,
+        "name": "Triple Krabby Patty"
       }
     ],
     "sideDishes": [
       {
         "id": 1,
-        "name": "Kelp Fries",
-        "price": 1.5
+        "name": "Kelp Fries"
       },
       {
         "id": 2,
-        "name": "Coral Bits",
-        "price": 1.25
+        "name": "Coral Bits"
+      },
+      {
+        "id": 3,
+        "name": "Kelp Rings"
       }
     ],
     "drinks": [
       {
         "id": 1,
-        "name": "Kelp Shake",
-        "price": 1
+        "name": "Kelp Shake"
       },
       {
         "id": 2,
-        "name": "Drinkable Sausage",
-        "price": 1.25
+        "name": "Drinkable Sausage"
+      },
+      {
+        "id": 3,
+        "name": "Seafoam Soda"
       }
     ]
   },
   "orders": [
     {
-      "name": "Pedro",
-      "burger": "Double Krabby Patty",
+      "name": "Caio Peternela",
+      "burger": "Krabby Patty",
       "sideDish": "Coral Bits",
-      "drink": "Kelp Shake",
+      "drink": "Drinkable Sausage",
       "id": 1
     }
   ]

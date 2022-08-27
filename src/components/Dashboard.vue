@@ -18,13 +18,15 @@
                 <div>{{ order.sideDish }}</div>
                 <div>{{ order.drink }}</div>
                 <button class="edit" @click="editOrderStatus(order.id)">Edit</button>
-                <button class="delete" @click="deleteOrder(order.id)">Cancel order</button>
+                <button class="delete" @click="deleteOrder(order.id)">Cancel</button>
             </div>
         </div>
         <div v-else class="table-rows">
             <div class="table-row" v-for="order in orders" :key="order.id">
                 <div class="order-number">{{ order.id }}</div>
-                <div>{{ order.name }}</div>
+                <div class="input-container">
+                    <input @change="editOrder($event, order.id)" type="text" name="name" id="name" v-model="order.name">
+                </div>
                 <div class="input-container">
                     <select @change="editOrder($event, order.id)" name="burger" id="burger" v-model="order.burger">
                         <option value="" disabled selected>Choose a burger</option>
@@ -44,7 +46,7 @@
                     </select>
                 </div>
                     <button class="edit" @click="editOrderStatus(order.id)">Save</button>
-                    <button class="delete" @click="deleteOrder(order.id)">Cancel order</button>
+                    <button class="delete" @click="deleteOrder(order.id)">Cancel</button>
                 </div>
             </div>
         </div>
@@ -55,6 +57,7 @@
         name: "Dashboard",
         data() {
             return {
+                //dashboard
                 orders: null,
                 editableMode: false,
                 //menu
@@ -89,15 +92,15 @@
                 this.getOrders()
             },
             async editOrder(event, id) {
-                const newValue = event.target.value
+                const value = event.target.value
                 const key = event.target.id
-                // const dataJson = JSON.stringfy({})
-                // const req = await fetch(`http://localhost:3000/orders/${id}`, {
-                //     method: "PATCH",
-                //     headers: {"Content-type": "application/json"},
-                //     body: dataJson
-                // })
-                // const res = await req.json()
+                const dataJson = JSON.stringify({[key]: value})
+                const req = await fetch(`http://localhost:3000/orders/${id}`, {
+                    method: "PATCH",
+                    headers: {"Content-type": "application/json"},
+                    body: dataJson
+                })
+                const res = await req.json()
             },
             editOrderStatus() {
                 this.editableMode = !this.editableMode
