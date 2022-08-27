@@ -1,19 +1,11 @@
-# krustykrab
+# Vue.js Krusty Krab CRUD
 
-## Project setup
+## Install dependencies
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run the app
 ```
-npm run serve
+npm run krustykrab
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
