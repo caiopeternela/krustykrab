@@ -5,7 +5,7 @@
 npm install
 ```
 
-### Run the app
+### Run app
 ```
 npm run krustykrab
 ```
