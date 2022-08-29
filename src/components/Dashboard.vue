@@ -1,5 +1,6 @@
 <template>
     <div id="table">
+        <Message  :text="text" v-show="text"/>
         <div>
             <div id="table-head">
                 <div class="order-id">#:</div>
@@ -53,11 +54,16 @@
 </template>
 
 <script>
+    import Message from "./Message.vue"
     export default {
         name: "Dashboard",
+        components: {
+            Message
+        },
         data() {
             return {
                 //dashboard
+                text: null,
                 orders: null,
                 editableMode: false,
                 //menu
@@ -90,6 +96,8 @@
                 })
                 const res = await req.json()
                 this.getOrders()
+                this.text = "Order cancelled successfully"
+                setTimeout(() => this.text = null, 3000)
             },
             async editOrder(event, id) {
                 const value = event.target.value
@@ -104,6 +112,10 @@
             },
             editOrderStatus() {
                 this.editableMode = !this.editableMode
+                if (this.editableMode == false) {
+                    this.text = "Order updated successfully"
+                    setTimeout(() => this.text = null, 3000)
+                }
             }
         },
         mounted() {
