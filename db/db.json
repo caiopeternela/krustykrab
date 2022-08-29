@@ -43,13 +43,5 @@
       }
     ]
   },
-  "orders": [
-    {
-      "name": "Caio Peternela",
-      "burger": "Krabby Patty",
-      "sideDish": "Coral Bits",
-      "drink": "Drinkable Sausage",
-      "id": 1
-    }
-  ]
+  "orders": []
 }
