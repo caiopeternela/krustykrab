@@ -133,7 +133,8 @@
     }
 
     .submit:hover {
-        background-color: #DA9FC3;
+        background-color: #BF1E2E;
+        color: white;
     }
 
 </style>
