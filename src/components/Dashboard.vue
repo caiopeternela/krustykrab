@@ -54,6 +54,8 @@
 </template>
 
 <script>
+    import axios from "axios"
+    axios.defaults.baseURL = "http://localhost:3000"
     import Message from "./Message.vue"
     export default {
         name: "Dashboard",
@@ -79,22 +81,17 @@
         },
         methods: {
             async getMenu() {
-                const req = await fetch("http://localhost:3000/menu")
-                const data = await req.json()
-                this.burgers = data.burgers
-                this.sideDishes = data.sideDishes
-                this.drinks = data.drinks
+                const req = await axios.get("/menu")
+                this.burgers = req.data.burgers
+                this.sideDishes = req.data.sideDishes
+                this.drinks = req.data.drinks
             },
             async getOrders() {
-                const req = await fetch("http://localhost:3000/orders")
-                const data = await req.json()
-                this.orders = data
+                const req = await axios.get("/orders")
+                this.orders = req.data
             },
             async deleteOrder(id) {
-                const req = await fetch(`http://localhost:3000/orders/${id}`, {
-                    method: "DELETE"
-                })
-                const res = await req.json()
+                const req = await axios.delete(`/orders/${id}`)
                 this.getOrders()
                 this.text = "Order cancelled successfully"
                 setTimeout(() => this.text = null, 3000)
@@ -102,13 +99,8 @@
             async editOrder(event, id) {
                 const value = event.target.value
                 const key = event.target.id
-                const dataJson = JSON.stringify({[key]: value})
-                const req = await fetch(`http://localhost:3000/orders/${id}`, {
-                    method: "PATCH",
-                    headers: {"Content-type": "application/json"},
-                    body: dataJson
-                })
-                const res = await req.json()
+                const dataJson = {[key]: value}
+                const req = await axios.patch(`http://localhost:3000/orders/${id}`, dataJson)
             },
             editOrderStatus() {
                 this.editableMode = !this.editableMode
