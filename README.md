@@ -1,5 +1,7 @@
 # Krusty Krab CRUD
 
+![alt text](/public/img/krustykrab.png)
+
 ## Install dependencies
 ```
 npm install
