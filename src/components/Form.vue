@@ -35,8 +35,7 @@
 </template>
 
 <script>
-    import axios from "axios"
-    axios.defaults.baseURL = "http://localhost:3000"
+    import * as api from "../api.js"
     import Message from "./Message.vue"
     export default {
         name: "Form",
@@ -59,10 +58,10 @@
         },
         methods: {
             async getMenu() {
-                const req = await axios.get("/menu")
-                this.burgers = req.data.burgers
-                this.sideDishes = req.data.sideDishes
-                this.drinks = req.data.drinks
+                const req = await api.getMenu()
+                this.burgers = req.burgers
+                this.sideDishes = req.sideDishes
+                this.drinks = req.drinks
             },
             async submitOrder(e) {
                 e.preventDefault()
@@ -72,8 +71,8 @@
                     sideDish: this.sideDish,
                     drink: this.drink
                 }
-                const req = await axios.post("/orders", data)
-                this.text = `Order ${req.data.id} placed successfully`
+                const req = await api.submitOrder(data)
+                this.text = `Order ${req.id} placed successfully`
                 setTimeout(() => this.text = null, 3000)
                 this.name = null
                 this.burger = null

@@ -43,5 +43,27 @@
       }
     ]
   },
-  "orders": []
+  "orders": [
+    {
+      "name": "Bob",
+      "burger": "Double Krabby Patty",
+      "sideDish": "Kelp Fries",
+      "drink": "Kelp Shake",
+      "id": 1
+    },
+    {
+      "name": "Patrick",
+      "burger": "Triple Krabby Patty",
+      "sideDish": "Coral Bits",
+      "drink": "Drinkable Sausage",
+      "id": 2
+    },
+    {
+      "name": "Sandy",
+      "burger": "Krabby Patty",
+      "sideDish": "Kelp Rings",
+      "drink": "Seafoam Soda",
+      "id": 3
+    }
+  ]
 }

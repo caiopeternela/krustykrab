@@ -8,54 +8,23 @@
                 <div>Burger:</div>
                 <div>Side dish:</div>
                 <div>Drink:</div>
-                <div>Actions:</div>
             </div>
         </div>
-        <div v-if="!editableMode" class="table-rows">
+        <div class="table-rows">
             <div class="table-row" v-for="order in orders" :key="order.id">
                 <div class="order-number">{{ order.id }}</div>
                 <div>{{ order.name }}</div>
                 <div>{{ order.burger }}</div>
                 <div>{{ order.sideDish }}</div>
                 <div>{{ order.drink }}</div>
-                <button class="edit" @click="editOrderStatus(order.id)">Edit</button>
                 <button class="delete" @click="deleteOrder(order.id)">Cancel</button>
             </div>
         </div>
-        <div v-else class="table-rows">
-            <div class="table-row" v-for="order in orders" :key="order.id">
-                <div class="order-number">{{ order.id }}</div>
-                <div class="input-container">
-                    <input @change="editOrder($event, order.id)" type="text" name="name" id="name" v-model="order.name">
-                </div>
-                <div class="input-container">
-                    <select @change="editOrder($event, order.id)" name="burger" id="burger" v-model="order.burger">
-                        <option value="" disabled selected>Choose a burger</option>
-                        <option v-for="burger in burgers" :key="burger.id" :value="burger.name">{{ burger.name }}</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <select @change="editOrder($event, order.id)" name="sideDish" id="sideDish" v-model="order.sideDish">
-                        <option value="" disabled selected>Choose a side dish</option>
-                        <option v-for="sideDish in sideDishes" :key="sideDish.id" :value="sideDish.name">{{ sideDish.name }}</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <select @change="editOrder($event, order.id)" name="drink" id="drink" v-model="order.drink">
-                        <option value="" disabled selected>Choose a drink</option>
-                        <option v-for="drink in drinks" :key="drink.id" :value="drink.name">{{ drink.name }}</option>
-                    </select>
-                </div>
-                    <button class="edit" @click="editOrderStatus(order.id)">Save</button>
-                    <button class="delete" @click="deleteOrder(order.id)">Cancel</button>
-                </div>
-            </div>
-        </div>
+    </div>
 </template>
 
 <script>
-    import axios from "axios"
-    axios.defaults.baseURL = "http://localhost:3000"
+    import * as api from "../api.js"
     import Message from "./Message.vue"
     export default {
         name: "Dashboard",
@@ -67,7 +36,6 @@
                 //dashboard
                 text: null,
                 orders: null,
-                editableMode: false,
                 //menu
                 burgers: null,
                 sideDishes: null,
@@ -81,36 +49,22 @@
         },
         methods: {
             async getMenu() {
-                const req = await axios.get("/menu")
-                this.burgers = req.data.burgers
-                this.sideDishes = req.data.sideDishes
-                this.drinks = req.data.drinks
+                const req = await api.getMenu()
+                this.burgers = req.burgers
+                this.sideDishes = req.sideDishes
+                this.drinks = req.drinks
             },
             async getOrders() {
-                const req = await axios.get("/orders")
-                this.orders = req.data
+                this.orders = await api.getOrders()
             },
             async deleteOrder(id) {
-                const req = await axios.delete(`/orders/${id}`)
+                const req = await api.deleteOrder(id)
                 this.getOrders()
                 this.text = "Order cancelled successfully"
                 setTimeout(() => this.text = null, 3000)
             },
-            async editOrder(event, id) {
-                const value = event.target.value
-                const key = event.target.id
-                const dataJson = {[key]: value}
-                const req = await axios.patch(`http://localhost:3000/orders/${id}`, dataJson)
-            },
-            editOrderStatus() {
-                this.editableMode = !this.editableMode
-                if (this.editableMode == false) {
-                    this.text = "Order updated successfully"
-                    setTimeout(() => this.text = null, 3000)
-                }
-            }
         },
-        mounted() {
+        created() {
             this.getMenu()
             this.getOrders()
         }
@@ -119,7 +73,7 @@
 
 <style scoped>
     #table {
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
     }
 
@@ -149,7 +103,7 @@
         width: 5%;
     }
 
-    .delete, .edit {
+    .delete {
         background-color: #BF1E2E;
         color: white;
         font-weight: bold;
@@ -161,11 +115,8 @@
         transition: .5s;
     }
 
-    .edit {
-        width: 75px;
-    }
 
-    .delete:hover, .edit:hover {
+    .delete:hover {
         background-color: #00AEF0;
     }
 
